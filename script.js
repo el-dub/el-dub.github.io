@@ -2,6 +2,7 @@ function goToNote(noteId){
 	saveLastNote();
 	openNote(noteId);
 }
+
 function saveLastNote(){
 	let titleInput = document.getElementById('noteTitleInput');
 	let textInput = document.getElementById('noteTextInput');
@@ -23,6 +24,7 @@ function saveLastNote(){
 		}
 	}
 }
+
 function updateNote(note){
 	let titleInput = document.getElementById('noteTitleInput');
 	let textInput = document.getElementById('noteTextInput');
@@ -33,14 +35,11 @@ function updateNote(note){
 	let liList = Array.from(document.querySelectorAll('li'));
 	for(let i = 0; i<liList.length; ++i){
 		if(liList[i].dataset.selected === 'true'){
-			
-			//????
 			let ul = document.querySelector('ul');
 			ul.prepend(liList[i]);
 			liList[i].dataset.selected === 'false';
 			selectDataInList(note);
 			break;
-			//
 		}
 	}
 }
@@ -65,30 +64,12 @@ function selectDataInList(note){
 	//Меняем дату
 	let dateSpan = document.querySelector('li .dateRow span');
 	dateSpan.textContent = note.date;
-	//li1 = document.querySelector('li');
-	//li1.onclick = () => { clickLi(li1)}
 }
 function addNoteToList(note){
-	//добавляем новый li
 	addNewLi();
 	let li = document.querySelector('li');
 	li.dataset.noteId = note.id;
 	selectDataInList(note);
-
-
-	/*//меняем в li заголовок
-	let titleSpan = document.querySelector('li .titleRow span');
-	titleSpan.textContent = note.title;
-	
-	//меняем в li текст заметки
-
-	let textSpan = document.querySelector('li .textRow span');
-	textSpan.textContent = note.text;
-
-	//Меняем дату
-	let dateSpan = document.querySelector('li .dateRow span');
-	dateSpan.textContent = note.date;*/
-
 }
 function addNewLi(){
 	let li1 = document.querySelector('li');
@@ -98,11 +79,8 @@ function addNewLi(){
 	ul.prepend(newLi);
 	li1 = document.querySelector('li');
 	li1.onclick = () => { clickLi(li1); };
-	//li1.mouseover = () => { li1.style.backgroundColor = 'lightgray'; }
-	//vcxli1.mouseout = () => { li1.style.backgroundColor = 'white'; }
 	let btRemove = document.querySelector('li div .removeBt');
 	btRemove.onclick = () => {removeLi(li1)};
-	//li1.addEventListener("onclick", clickLi(li1));
 }
 function clickLi(element){
 	goToNote(element.dataset.noteId);
@@ -114,7 +92,6 @@ function clickLi(element){
 	element.style.backgroundColor = 'lightgray';
 	element.dataset.selected = 'true';
 	window.location.hash = '/'+element.dataset.noteId;
-	//goToNote(element.dataset.noteId);
 }
 function openNote(noteId){
 	let note = JSON.parse(localStorage.getItem(noteId));
@@ -161,6 +138,7 @@ function createNewNote(){
 	return newNote;
 }
 function addNewNote(){
+	window.location.hash = '';
 	saveLastNote();
 	clearNotepad();
 	let liList = Array.from(document.querySelectorAll('li'));
@@ -177,7 +155,7 @@ function removeLi(li){
 	localStorage.removeItem(li.dataset.noteId);
 	li.remove();
 	event.stopPropagation();
-	window.location.hash = '/';
+	window.location.hash = '';
 }
 
 function showAllNotes(){
