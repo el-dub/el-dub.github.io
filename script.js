@@ -168,6 +168,7 @@ function addNewNote(){
 		liList[i].style.backgroundColor = 'white';
 		liList[i].dataset.selected = 'false';
 	}
+	window.location.hash = '/';
 }
 function removeLi(li){
 	if(li.dataset.selected==='true'){
@@ -176,6 +177,7 @@ function removeLi(li){
 	localStorage.removeItem(li.dataset.noteId);
 	li.remove();
 	event.stopPropagation();
+	window.location.hash = '/';
 }
 
 function showAllNotes(){
