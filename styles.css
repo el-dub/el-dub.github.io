@@ -19,9 +19,6 @@ li div{
 li{
 	padding: 10px;
 }
-li:hover {
-	background-color: lightgray;
-}
 ul {
 	list-style-type: none;
 	padding: 0;

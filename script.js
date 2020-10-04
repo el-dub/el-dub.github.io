@@ -138,7 +138,7 @@ function createNewNote(){
 	return newNote;
 }
 function addNewNote(){
-	window.location.hash = '';
+	window.location.hash = '/ ';
 	saveLastNote();
 	clearNotepad();
 	let liList = Array.from(document.querySelectorAll('li'));
@@ -146,7 +146,6 @@ function addNewNote(){
 		liList[i].style.backgroundColor = 'white';
 		liList[i].dataset.selected = 'false';
 	}
-	window.location.hash = '/';
 }
 function removeLi(li){
 	if(li.dataset.selected==='true'){
@@ -155,7 +154,7 @@ function removeLi(li){
 	localStorage.removeItem(li.dataset.noteId);
 	li.remove();
 	event.stopPropagation();
-	window.location.hash = '';
+	window.location.hash = '/ ';
 }
 
 function showAllNotes(){
@@ -180,37 +179,23 @@ function compare(a, b){
 	let bArr = bD.split(' ');
 	let bDate = bArr[0].split('.');
 	let bTime = bArr[1].split('.');
-	if(aDate[2]<bDate[2])
-		return -1;
-	else if(aDate[2]>bDate[2])
-		return 1;
+	if(aDate[2]<bDate[2]) return -1;
+	else if(aDate[2]>bDate[2]) return 1;
 	else{
-		if(aDate[1]<bDate[1])
-			return -1;
-		else if(aDate[1]>bDate[1])
-			return 1;
+		if(aDate[1]<bDate[1]) return -1;
+		else if(aDate[1]>bDate[1]) return 1;
 		else{
-			if(aDate[0]<bDate[0])
-				return -1;
-			else if(aDate[0]>bDate[0])
-				return 1;
+			if(aDate[0]<bDate[0]) return -1;
+			else if(aDate[0]>bDate[0]) return 1;
 			else{
-				if(aTime[0]<bTime[0]){
-					return -1;
-				}
-				else if(aTime[0]>bTime[0]){
-					return 1;
-				}
+				if(aTime[0]<bTime[0]) return -1;
+				else if(aTime[0]>bTime[0]) return 1;
 				else{
-					if(aTime[1]<bTime[1])
-						return -1;
-					else if(aTime[0]>bTime[0])
-						return 1;
+					if(aTime[1]<bTime[1]) return -1;
+					else if(aTime[0]>bTime[0]) return 1;
 					else{
-						if(aTime[2]<bTime[2])
-							return -1;
-						else
-							return 1;
+						if(aTime[2]<bTime[2]) return -1;
+						else return 1;
 					}
 				}
 			}
@@ -224,5 +209,7 @@ function addNoteFromStorage(note){
 	const addButton = document.getElementById('addNote');
 	addButton.onclick = () => { addNewNote()}
 })()
-
+document.addEventListener("DOMContentLoaded", () => {
+    window.location.hash='/ ';
+});
 showAllNotes();
