@@ -113,7 +113,7 @@ function clickLi(element){
 	}
 	element.style.backgroundColor = 'lightgray';
 	element.dataset.selected = 'true';
-	location.hash = element.dataset.noteId;
+	location.hash = 'text';
 	//goToNote(element.dataset.noteId);
 }
 function openNote(noteId){
