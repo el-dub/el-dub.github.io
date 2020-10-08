@@ -91,7 +91,7 @@ function clickLi(element){
 	}
 	element.style.backgroundColor = 'lightgray';
 	element.dataset.selected = 'true';
-	window.location.hash = '/'+element.dataset.noteId;
+	window.location.hash = ''+element.dataset.noteId;
 }
 function openNote(noteId){
 	let note = JSON.parse(localStorage.getItem(noteId));
@@ -138,7 +138,7 @@ function createNewNote(){
 	return newNote;
 }
 function addNewNote(){
-	window.location.hash = '/ ';
+	window.location.hash = '';
 	saveLastNote();
 	clearNotepad();
 	let liList = Array.from(document.querySelectorAll('li'));
@@ -154,7 +154,7 @@ function removeLi(li){
 	localStorage.removeItem(li.dataset.noteId);
 	li.remove();
 	event.stopPropagation();
-	window.location.hash = '/ ';
+	window.location.hash = '';
 }
 
 function showAllNotes(){
@@ -210,6 +210,25 @@ function addNoteFromStorage(note){
 	addButton.onclick = () => { addNewNote()}
 })()
 document.addEventListener("DOMContentLoaded", () => {
-    window.location.hash='/ ';
+    window.location.hash='';
 });
+window.onhashchange = function() { 
+	let noteId = window.location.href.split('#')[1];
+	let element;
+	let liList = Array.from(document.querySelectorAll('li'));
+	for(let i = 0; i<liList.length; ++i){
+		if(liList[i].dataset.noteId===noteId){
+			element = liList[i];
+			goToNote(element.dataset.noteId);
+			for(let i = 0; i<liList.length; ++i){
+				liList[i].style.backgroundColor = 'white';
+				liList[i].dataset.selected = 'false';
+			}
+			element.style.backgroundColor = 'lightgray';
+			element.dataset.selected = 'true';
+			window.location.hash = ''+element.dataset.noteId;
+			break;
+		}
+	}
+}
 showAllNotes();
